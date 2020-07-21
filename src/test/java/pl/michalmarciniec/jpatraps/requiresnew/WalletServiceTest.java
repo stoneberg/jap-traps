@@ -22,12 +22,15 @@ public class WalletServiceTest {
     @Autowired
     private WalletService walletService;
 
+    /**
+     * 서로 다른 트랜잰션으로 분리(T1,T2)된 메서드의 결과는 DB로 전파(propagation)되지 않는다.
+     */
     @Test
     public void shouldCreateAndAddEmptyWalletToPerson() {
-        // given
+        // given (T1)
         Person margaret = personRepository.save(new Person("Margaret"));
 
-        // when
+        // when (T2)
         long walletId = walletService.createWalletAndAttachToPerson(margaret).getId();
 
         // then
