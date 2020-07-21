@@ -27,11 +27,11 @@ public class PersonService {
         personRepository.save(person);
 
         try {
-        	Wallet wallet = walletService.createWallet(money);
-        	person.setWallet(wallet);
-		} catch (Exception e) {
-			log.error("@catching inner exception=====>{}", e.getMessage());
-		}
+            Wallet wallet = walletService.createWallet(money);
+            person.setWallet(wallet);
+        } catch (Exception e) {
+            log.error("@catching inner exception=====>{}", e.getMessage());
+        }
         
         return person.getId();
     }

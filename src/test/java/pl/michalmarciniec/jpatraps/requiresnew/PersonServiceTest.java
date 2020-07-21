@@ -19,8 +19,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class PersonServiceTest {
-	
-	private static Logger log = LoggerFactory.getLogger(PersonServiceTest.class);
+    
+    private static Logger log = LoggerFactory.getLogger(PersonServiceTest.class);
 
     @Autowired
     private PersonService personService;
@@ -51,8 +51,8 @@ public class PersonServiceTest {
         // when
 //        assertThatThrownBy(() -> personService.createPerson("Vince", BigDecimal.valueOf(-100.0D)))
 //                .isInstanceOf(IllegalStateException.class);
-    	
-    	personService.createPerson("Vince", BigDecimal.valueOf(-100.0D));
+        
+        personService.createPerson("Vince", BigDecimal.valueOf(-100.0D));
         
         log.info("@person=========>{}", personRepository.findAll());
         log.info("@wallet=========>{}", walletRepository.findAll());
