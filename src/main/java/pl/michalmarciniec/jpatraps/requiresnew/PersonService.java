@@ -24,11 +24,6 @@ public class PersonService {
         personRepository.save(person);
 
         Wallet wallet = walletService.createWallet(money);
-        
-        if (wallet.getAmount().compareTo(BigDecimal.ZERO) < 0) {
-            throw new RuntimeException("Initial amount of money cannot be less than zero");
-        }
-
         person.setWallet(wallet);
         return person.getId();
     }

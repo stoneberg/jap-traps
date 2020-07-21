@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sun.xml.txw2.IllegalSignatureException;
+
 import java.math.BigDecimal;
 
 @Service
@@ -19,8 +21,14 @@ public class WalletService {
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Wallet createWallet(BigDecimal money) {
-        Wallet emptyWallet = new Wallet(money);
-        return walletRepository.save(emptyWallet);
+        Wallet wallet = new Wallet(money);
+        walletRepository.save(wallet);
+        
+        if (wallet.getAmount().compareTo(BigDecimal.ZERO) < 0) {
+            throw new IllegalSignatureException("Initial amount of money cannot be less than zero");
+        }
+        
+        return wallet;
     }
 
 }

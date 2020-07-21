@@ -1,5 +1,11 @@
 package pl.michalmarciniec.jpatraps.requiresnew;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+import java.math.BigDecimal;
+import java.util.Optional;
+
 import org.assertj.core.data.Percentage;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,15 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.math.BigDecimal;
-import java.util.Optional;
+import com.sun.xml.txw2.IllegalSignatureException;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class PersonServiceTest {
+	
+	private static Logger log = LoggerFactory.getLogger(PersonServiceTest.class);
 
     @Autowired
     private PersonService personService;
@@ -38,15 +45,21 @@ public class PersonServiceTest {
         assertThat(jeremyWallet.getAmount()).isCloseTo(BigDecimal.TEN, Percentage.withPercentage(0.1D));
     }
 
+    /**
+     * 하위 트랜잰션의 exception으로 인해 전체 트랜잰션이 롤백됨
+     */
     @Test
     public void shouldNotCreateAnythingWhenTryingToCreatePersonWithNegativeAmountOfMoney() {
         // when
         assertThatThrownBy(() -> personService.createPerson("Vince", BigDecimal.valueOf(-100.0D)))
-                .isInstanceOf(RuntimeException.class);
+                .isInstanceOf(IllegalSignatureException.class);
+        
+        log.info("@person=========>{}", personRepository.findAll());
+        log.info("@wallet=========>{}", walletRepository.findAll());
 
         // then
         assertThat(personRepository.findAll()).isEmpty();
-        assertThat(walletRepository.findAll()).isEmpty(); // <== is not empty
+        assertThat(walletRepository.findAll()).isEmpty();
     }
 
 }

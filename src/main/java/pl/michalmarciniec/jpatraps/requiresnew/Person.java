@@ -5,6 +5,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import lombok.Data;
+
+@Data
 @Entity
 public class Person {
 
@@ -29,16 +32,5 @@ public class Person {
 		this.wallet = wallet;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public Wallet getWallet() {
-		return wallet;
-	}
-
-	public void setWallet(Wallet wallet) {
-		this.wallet = wallet;
-	}
 
 }
