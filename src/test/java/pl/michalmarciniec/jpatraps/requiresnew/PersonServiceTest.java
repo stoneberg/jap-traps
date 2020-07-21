@@ -46,7 +46,7 @@ public class PersonServiceTest {
 
         // then
         assertThat(personRepository.findAll()).isEmpty();
-        assertThat(walletRepository.findAll()).isEmpty();
+        assertThat(walletRepository.findAll()).isEmpty(); // <== is not empty
     }
 
 }
