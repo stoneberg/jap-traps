@@ -8,36 +8,36 @@ import javax.persistence.OneToOne;
 @Entity
 public class Person {
 
-    @Id
-    @GeneratedValue
-    private Long id;
+	@Id
+	@GeneratedValue
+	private Long id;
 
-    private String name;
-    @OneToOne
-    private Wallet wallet;
+	private String name;
+	@OneToOne
+	private Wallet wallet;
 
-    protected Person() {
-    }
+	protected Person() {
+	}
 
-    public Person(String name) {
-        this.name = name;
-    }
+	public Person(String name) {
+		this.name = name;
+	}
 
-    public Person(String name, Wallet wallet) {
-        this.name = name;
-        this.wallet = wallet;
-    }
+	public Person(String name, Wallet wallet) {
+		this.name = name;
+		this.wallet = wallet;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public Wallet getWallet() {
-        return wallet;
-    }
+	public Wallet getWallet() {
+		return wallet;
+	}
 
-    public void setWallet(Wallet wallet) {
-        this.wallet = wallet;
-    }
+	public void setWallet(Wallet wallet) {
+		this.wallet = wallet;
+	}
 
 }
