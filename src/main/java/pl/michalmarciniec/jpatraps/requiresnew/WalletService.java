@@ -22,7 +22,9 @@ public class WalletService {
         Wallet emptyWallet = new Wallet();
         walletRepository.save(emptyWallet);
 
-        Person person = personRepository.findById(personId).orElseThrow();
+        Person person = personRepository.findById(personId)
+        		.orElseThrow(() -> new IllegalStateException("Not Found Such Person Id: " + personId));
+        
         person.setWallet(emptyWallet);
 
         return emptyWallet;
