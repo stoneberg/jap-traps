@@ -41,7 +41,7 @@ public class WalletServiceTest {
         Assertions.assertThat(dbMargaret).isPresent();
 
         Wallet margaretWallet = dbMargaret.get().getWallet();
-        assertThat(margaretWallet).isNotNull();
+        assertThat(margaretWallet).isNotNull(); // <== is null, person.setWallet() 이 영속화되지 않음
         assertThat(margaretWallet.getId()).isNotNull();
         assertThat(margaretWallet.getAmount()).isZero();
     }
