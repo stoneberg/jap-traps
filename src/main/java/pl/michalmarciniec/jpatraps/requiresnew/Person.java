@@ -13,6 +13,7 @@ public class Person {
 	private Long id;
 
 	private String name;
+	
 	@OneToOne
 	private Wallet wallet;
 
